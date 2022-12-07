@@ -6,16 +6,28 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    // new Processor
+	CPU* cpu = new CPU();
+    // reset
+	cpu->reset();
+
+	// ask the user for the path to the ROM file
+	std::string path;
+	std::cout << "Enter the path to the ROM file: ";
+	std::cin >> path;
+	
+	// load the ROM file
+	cpu->loadROM(path);
+
+	// print registers
+	cpu->printRegisters();
+
+	// print the first 32 bytes of EEPROM
+	std::cout << "EEPROM:" << std::endl;
+	for (unsigned short i = 0; i < 32; i++) {
+		std::cout << "0x" << std::hex << i << ": 0x" << std::hex << (int)cpu->eeprom.read(i) << std::endl;
+	}
+	
+	// delete the processor
+	delete cpu;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
