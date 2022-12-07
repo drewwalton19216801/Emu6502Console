@@ -1,6 +1,7 @@
 #include "CPU.h"
 #include <iostream>
-#include <assert.h>
+
+#define ASSERT(Condition, Text) { if ( !Condition ) { throw -1; } }
 
 CPU::CPU()
 {
@@ -260,11 +261,7 @@ s32 CPU::execute(s32 cycles, Memory& memory)
 	auto ADC = [&cycles, &memory, this](Byte Operand)
 	{
 		// decimal mode not supported
-		if (status.D)
-		{
-			std::cout << "Error: Decimal mode not supported" << std::endl;
-			return;
-		}
+		ASSERT(!status.D, "Decimal mode not supported");
 		const bool AreSignBitsTheSame = !((registers.A ^ Operand) & NegativeFlagBit);
 		Word Sum = registers.A;
 		Sum += Operand;
