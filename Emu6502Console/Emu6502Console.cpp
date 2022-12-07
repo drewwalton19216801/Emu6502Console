@@ -8,8 +8,10 @@ int main()
 {
     // new Processor
 	CPU* cpu = new CPU();
-    // reset
-	cpu->reset();
+	// initialize memory
+	cpu->memory.init();
+	// reset
+	cpu->reset(cpu->memory);
 
 	// ask the user for the path to the ROM file
 	std::string path;
@@ -17,15 +19,18 @@ int main()
 	std::cin >> path;
 	
 	// load the ROM file
-	cpu->loadROM(path);
+	cpu->loadROM(path, cpu->memory);
 
-	// print registers
-	cpu->printRegisters();
-
-	// print the first 32 bytes of EEPROM
-	std::cout << "EEPROM:" << std::endl;
-	for (unsigned short i = 0; i < 32; i++) {
-		std::cout << "0x" << std::hex << i << ": 0x" << std::hex << (int)cpu->eeprom.read(i) << std::endl;
+	// a run loop
+	while (true)
+	{
+		// ask the user to press enter to execute the next instruction
+		std::cout << "Press enter to execute the next instruction" << std::endl;
+		std::cin.get();
+		// execute the next instruction
+		cpu->execute(1, cpu->memory);
+		// print the status
+		cpu->printStatus();
 	}
 	
 	// delete the processor
