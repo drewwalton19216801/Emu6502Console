@@ -1,3 +1,7 @@
+/**
+* Class name: CPU
+* Purpose: Implement a 6502 CPU
+**/
 #pragma once
 
 #include "EEPROM.h"
@@ -38,5 +42,8 @@ public:
 
 	// Status Register
 	unsigned char P;
+
+	// 32K SRAM
+	Memory* memory;
 };
 
