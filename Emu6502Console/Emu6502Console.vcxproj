@@ -133,9 +133,6 @@
   <ItemGroup>
     <ClInclude Include="CPU.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\Desktop\vasm6502\test.bin" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
